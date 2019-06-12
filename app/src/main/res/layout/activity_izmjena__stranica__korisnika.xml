@@ -13,8 +13,8 @@
 
         <TextView
             android:id="@+id/etIzmjenaPrikazUsername"
-            android:layout_width="264dp"
-            android:layout_height="47dp"
+            android:layout_width="143dp"
+            android:layout_height="45dp"
             android:layout_marginStart="4dp"
             android:layout_marginLeft="4dp"
             android:layout_marginTop="48dp"
@@ -92,15 +92,15 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:layout_width="132dp"
-            android:layout_height="131dp"
+            android:layout_width="96dp"
+            android:layout_height="81dp"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="140dp"
+            android:layout_marginTop="112dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.02"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@mipmap/ic_launcher_round" />

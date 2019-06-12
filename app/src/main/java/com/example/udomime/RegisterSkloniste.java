@@ -3,6 +3,7 @@ package com.example.udomime;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -286,7 +287,10 @@ public class RegisterSkloniste extends BaseActivity {
         if (id == R.id.action_search) {
             return true;
         }
-
+        if(id==R.id.advance_search){
+            Intent intent = new Intent(getApplicationContext(),NapredniSearch.class);
+            startActivity(intent);
+        }
         return super.onOptionsItemSelected(item);
     }
 

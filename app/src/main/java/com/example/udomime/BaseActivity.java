@@ -56,9 +56,16 @@ public class BaseActivity extends AppCompatActivity
         searchBar.setOnSearchActionListener(this);
         //searchBar.inflateMenu(R.menu.main2);
         //searchBar.setText("Ime životinje");
+//        Button napredno=(Button)navigationView.getHeaderView(0).findViewById(R.id.advance_search);
 
         //search
-
+/*        napredno.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),NapredniSearch.class);
+                startActivity(intent);
+            }
+        });*/
         session = new SessionHandler(getApplicationContext());
         final User userr = session.getUserDetails();
         Button izmjena=(Button)navigationView.getHeaderView(0).findViewById(R.id.Izmjenibuttonkorisnika);

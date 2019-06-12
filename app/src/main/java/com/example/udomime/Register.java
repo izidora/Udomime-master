@@ -276,7 +276,10 @@ public class Register extends BaseActivity {
         if (id == R.id.action_search) {
             return true;
         }
-
+        if(id==R.id.advance_search){
+            Intent intent = new Intent(getApplicationContext(),NapredniSearch.class);
+            startActivity(intent);
+        }
         return super.onOptionsItemSelected(item);
     }
 
