@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/jmn"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/addpicture" />
+
+    <RadioGroup
+        android:id="@+id/radioKind"
+        android:layout_width="wrap_content"
+        android:layout_height="50px"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:baselineAligned="false"
+        android:checkedButton="@id/radioDog"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radioDog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:buttonTint="@color/blueMain"
+            android:text="Pas" />
+
+        <RadioButton
+            android:id="@+id/radioCat"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_weight="1"
+            android:buttonTint="@color/blueMain"
+            android:text="Mačka" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/radioSex"
+        android:layout_width="wrap_content"
+        android:layout_height="50px"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:baselineAligned="false"
+        android:checkedButton="@id/radioMale"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radioMale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:buttonTint="@color/blueMain"
+            android:text="Muško" />
+
+        <RadioButton
+            android:id="@+id/radioFemale"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_weight="1"
+            android:buttonTint="@color/blueMain"
+            android:text="Žensko" />
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/input_age"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Starost (u mjesecima)"
+                android:textColorHighlight="@color/blueMain"
+                android:textColorLink="@color/blueMain"
+                android:textSize="14sp"
+                android:theme="@style/InputTextTheme"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/input_size"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Težina (u kilogramima)"
+                android:textColorHighlight="@color/blueMain"
+                android:textColorLink="@color/blueMain"
+                android:textSize="14sp"
+                android:theme="@style/InputTextTheme"/>
+
+        </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/nameInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusableInTouchMode="true"
+            android:hint="Ime"
+            android:scrollbarAlwaysDrawHorizontalTrack="false"
+            android:scrollbarAlwaysDrawVerticalTrack="false"
+            android:scrollbarTrackVertical="@null"
+            android:singleLine="true"
+            android:textColorHighlight="@color/blueMain"
+            android:textColorLink="@color/blueMain"
+            android:textSize="14sp"
+            android:theme="@style/InputTextTheme"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <AutoCompleteTextView
+        android:id="@+id/breedInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:completionHint="Pasmina"
+        android:dropDownHeight="wrap_content"
+        android:textColorHighlight="@color/blueMain"
+        android:textColorLink="@color/blueMain"
+        android:textSize="14sp"
+        android:hint="Pasmina"
+        android:theme="@style/InputTextTheme"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/descriptionInput"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:hint="Opis"
+            android:singleLine="false"
+            android:textColorHighlight="@color/blueMain"
+            android:textColorLink="@color/blueMain"
+            android:textSize="14sp"
+            android:theme="@style/InputTextTheme"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/saveAnimal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/blueMain"
+        android:paddingLeft="100px"
+        android:paddingRight="100px"
+        android:text="Unesi" />
+
+</LinearLayout>
