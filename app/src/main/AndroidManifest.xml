@@ -76,11 +76,7 @@
         </activity>
         <activity android:name=".EditShelter" />
         <activity android:name=".ShelterProfile" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".AnimalProfile" />
         <activity android:name=".EditAnimal" />
