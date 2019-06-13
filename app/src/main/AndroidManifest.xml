@@ -3,10 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.udomime">
 
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.    READ_GSERVICES" />
 
     <application
         android:allowBackup="true"
@@ -17,6 +24,30 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:replace="android:label">
+
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".MapsActivity"
+            android:label="@string/title_activity_maps"></activity>
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+        -->
         <activity android:name=".NapredniSearch">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,9 +57,7 @@
         </activity>
         <activity android:name=".SearchIspis" />
         <activity android:name=".Izmjena_Stranica_Korisnika" />
-        <activity android:name=".Stranica_korisnika">
-
-        </activity>
+        <activity android:name=".Stranica_korisnika" />
         <activity
             android:name=".RegisterSkloniste"
             android:label="@string/title_activity_register_skloniste"
@@ -40,11 +69,9 @@
         <activity
             android:name=".MainActivity"
             android:label="Log in"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-        <activity android:name=".EditShelter"></activity>
-        <activity android:name=".ShelterProfile"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".EditShelter" />
+        <activity android:name=".ShelterProfile" />
         <activity android:name=".AnimalProfile" />
         <activity android:name=".EditAnimal" />
         <activity android:name=".DisplayAnimals" />
