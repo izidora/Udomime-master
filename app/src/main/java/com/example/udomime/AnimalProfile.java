@@ -162,6 +162,7 @@ public class AnimalProfile extends AppCompatActivity {
                             imageModelArrayList.add(url);
                         }
                     }
+                    Toast.makeText(AnimalProfile.this, ime, Toast.LENGTH_LONG).show();
 
                     adapter.notifyDataSetChanged();
 

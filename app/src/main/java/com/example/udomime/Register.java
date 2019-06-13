@@ -60,13 +60,13 @@ public class Register extends BaseActivity {
     private String grad;
     private String email;
     private ProgressDialog pDialog;
-    private String register_url = "http://192.168.1.4/mobilne/register.php";
+    private String register_url;
     private SessionHandler session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_register);
-
+        register_url = getString(R.string.localhost_url).concat("/register.php");
         //novo dodano
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 //inflate your activity layout here!

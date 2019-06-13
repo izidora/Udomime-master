@@ -65,6 +65,7 @@ public class EditShelter extends AppCompatActivity {
     private String upload_URL2;
     private String upload_URL3;
     private RequestQueue rQueue;
+    SessionHandler session;
     String id;
 
     private ArrayList<HashMap<String, String>> arraylist;
@@ -136,6 +137,7 @@ public class EditShelter extends AppCompatActivity {
         editAnimals.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //session.loginUser("izi","Izidora",1, 1,"idaso","Pula","ksoods");
                 Intent intent = new Intent(EditShelter.this, DisplayAnimals.class);
                 Bundle b = new Bundle();
                 b.putInt("shelterId", val); //Your id
@@ -199,7 +201,7 @@ public class EditShelter extends AppCompatActivity {
                         try {
                             String json = new String(response.data);
                             JSONObject jsonObject = new JSONObject(json.substring(json.indexOf("{"), json.lastIndexOf("}") + 1));
-                            Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                             jsonObject.toString().replace("\\\\","");
 
                             if (jsonObject.getString("status").equals("true")) {
@@ -355,6 +357,7 @@ public class EditShelter extends AppCompatActivity {
             JSONObject jsonObject = new JSONObject(response);
             if (jsonObject.getString("status").equals("true")) {
                 JSONArray dataArray = jsonObject.getJSONArray("data");
+                Toast.makeText(EditShelter.this,"Podaci su izmijenjeni", Toast.LENGTH_LONG);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -364,7 +367,7 @@ public class EditShelter extends AppCompatActivity {
 
     private void fetchInfo(final String value){
 
-        Toast.makeText(getApplicationContext(), value, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), value, Toast.LENGTH_SHORT).show();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, upload_URL3,
                 new Response.Listener<String>() {
                     @Override

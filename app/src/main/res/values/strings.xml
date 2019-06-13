@@ -29,6 +29,7 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_dashboard">DashboardActivity</string>
     <string name="parse">Parse</string>
+
     <!--<string name="register_url">http://192.168.43.242/mobilne/register.php</string>-->
     <!--<string name="login_url">http://192.168.43.242/mobilne/login.php</string>-->
     <string name="title_activity_register">Register</string>
@@ -37,4 +38,5 @@
     <!--<string name="localhost_url">http://192.168.1.2/projekt</string>-->
     <string name="title_activity_google_map">Map</string>
     <string name="title_activity_maps">Map</string>
+
 </resources>
