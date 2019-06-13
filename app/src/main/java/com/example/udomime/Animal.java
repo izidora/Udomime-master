@@ -8,15 +8,16 @@ public class Animal {
     private String name;
     // Store the release date of the movie
     private String breed;
-
+    private String shelter;
     private String url;
 
     // Constructor that is used to create an instance of the Movie object
-    public Animal(int id, String name, String breed, String url) {
+    public Animal(int id, String name, String breed, String url, String shelter) {
         this.idAnimal = id;
         this.name = name;
         this.breed = breed;
         this.url = url;
+        this.shelter = shelter;
     }
 
     public int getIdAnimal() {
@@ -49,5 +50,13 @@ public class Animal {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getShelter() {
+        return shelter;
+    }
+
+    public void setShelter(String shelter) {
+        this.shelter = shelter;
     }
 }

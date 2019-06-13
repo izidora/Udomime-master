@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -40,6 +41,7 @@ public class Izmjena_Stranica_Korisnika extends BaseActivity {
 
     private static final String KEY_ID="id";
     private static final String KEY_ULOGA="uloga";
+    private SharedPreferences.Editor mEditor;
 
     private ProgressDialog pDialog;
 
@@ -134,8 +136,11 @@ public class Izmjena_Stranica_Korisnika extends BaseActivity {
                             //System.out.println("Odgovorlogin" + response.toString());
 
                             if (response.getInt(KEY_STATUS) == 0) {
-                                session.loginUser(etIzUsername.getText().toString(),response.getString(KEY_FULL_NAME),response.getInt(KEY_ID),response.getInt(KEY_ULOGA),response.getString("email"),response.getString("grad"),response.getString("zupanija"));
+
+                                //session.loginUser(etIzUsername.getText().toString(),response.getString(KEY_FULL_NAME),response.getInt(KEY_ID),response.getInt(KEY_ULOGA),response.getString("email"),response.getString("grad"),response.getString("zupanija"));
                                 //loadDashboard();
+                                Izmjena_Stranica_Korisnika.super.session.loginUser(etIzUsername.getText().toString(),response.getString(KEY_FULL_NAME),response.getInt(KEY_ID),response.getInt(KEY_ULOGA),response.getString("email"),response.getString("grad"),response.getString("zupanija"));
+                                //mEditor.putString(KEY_GRAD,grad);
                                  Log.d("****","[" + response + "]");
                                 //User user = session.getUserDetails();
                                 //Log.d("Podaci:",session.getUserDetails());
@@ -200,44 +205,6 @@ public class Izmjena_Stranica_Korisnika extends BaseActivity {
         }
 
         return true;
-    }
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main2, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_search) {
-            return true;
-        }
-        if(id==R.id.advance_search){
-            Intent intent = new Intent(getApplicationContext(),NapredniSearch.class);
-            startActivity(intent);
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onBackPressed() {
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                finishAffinity();
-            } else {
-                super.onBackPressed();
-            }
-        }
     }
 
     /**
