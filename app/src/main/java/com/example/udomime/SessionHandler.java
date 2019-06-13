@@ -2,6 +2,7 @@ package com.example.udomime;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.widget.Toast;
 
 import java.util.Date;
 
@@ -51,6 +52,7 @@ public class SessionHandler {
         mEditor.putString(KEY_GRAD,grad);
         mEditor.putString(KEY_ZUPANIJA,zupannija);
         //ja
+        Toast.makeText(mContext.getApplicationContext(),"HEJUsaosam",Toast.LENGTH_SHORT).show();
 
         Date date = new Date();
 
