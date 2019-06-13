@@ -34,5 +34,5 @@
     <string name="title_activity_register">Register</string>
     <string name="title_activity_register_skloniste">RegisterSkloniste</string>
     <string name="title_activity_main2">Main2Activity</string>
-    <string name="localhost_url">http://192.168.1.2/projekt</string>
+    <string name="localhost_url">http://192.168.1.5/projekt</string>
 </resources>

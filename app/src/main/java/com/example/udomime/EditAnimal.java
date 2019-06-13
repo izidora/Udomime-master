@@ -71,6 +71,8 @@ public class EditAnimal extends AppCompatActivity {
     //private String upload_URL3 = "http://192.168.5.15/projekt/fetchanimalprofile.php?";
     private RequestQueue rQueue;
     String id;
+    String idShelter;
+    String getUrl="";
 
     private ArrayList<HashMap<String, String>> arraylist;
 
@@ -87,10 +89,15 @@ public class EditAnimal extends AppCompatActivity {
 
         Bundle b = getIntent().getExtras();
         int value = -1; // or other values
-        if(b != null)
+        int valueShelter = -1;
+        if(b != null) {
             value = b.getInt("animalId");
+            valueShelter = b.getInt("shelterId");
+        }
         id = ""+value;
-        
+        id="-1";
+        idShelter = ""+valueShelter;
+
         imageView = (ImageView) findViewById(R.id.iv);
         name = (TextInputEditText) findViewById((R.id.nameInput));
         breed = (AutoCompleteTextView) findViewById((R.id.breedInput));
@@ -164,7 +171,12 @@ public class EditAnimal extends AppCompatActivity {
     private void uploadImage(final Bitmap bitmap, String id){
 
         final String id1 = id;
-
+        if (id.equals("-1")) {
+            upload_URL=getString(R.string.localhost_url).concat("/uploadfilenew.php?");
+        }
+        else {
+            upload_URL=getString(R.string.localhost_url).concat("/uploadfile.php?");
+        }
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, upload_URL,
                 new Response.Listener<NetworkResponse>() {
                     @Override
@@ -175,7 +187,7 @@ public class EditAnimal extends AppCompatActivity {
                         rQueue.getCache().clear();
                         try {
                             String json = new String(response.data);
-                            //Toast.makeText(getApplicationContext(), json, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), json, Toast.LENGTH_SHORT).show();
                             JSONObject jsonObject = new JSONObject(json.substring(json.indexOf("{"), json.lastIndexOf("}") + 1));
                             //Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                             jsonObject.toString().replace("\\\\","");
@@ -190,7 +202,10 @@ public class EditAnimal extends AppCompatActivity {
                                     url = dataobj.optString("url_slike");
                                     System.out.println(url);
                                 }
-                                Picasso.get().load(getString(R.string.localhost_url).concat(url)).into(imageView);
+                                if(url!="") {
+                                    Picasso.get().load(getString(R.string.localhost_url).concat(url)).into(imageView);
+                                    getUrl = url;
+                                }
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -215,6 +230,7 @@ public class EditAnimal extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params2 = new HashMap<>();
                 params2.put("idAnimal", id1);
+                Log.d("HEJ",params2.toString());
                 return params2;
             }
 
@@ -226,6 +242,7 @@ public class EditAnimal extends AppCompatActivity {
                 Map<String, DataPart> params = new HashMap<>();
                 long imagename = System.currentTimeMillis();
                 params.put("filename", new DataPart(imagename + ".png", getFileDataFromDrawable(bitmap)));
+                Log.d("SLIKAAA",params.toString());
                 return params;
             }
         };
@@ -283,6 +300,9 @@ public class EditAnimal extends AppCompatActivity {
 
 
     private void uploadInfo(){
+        if (id.equals("-1")) {
+            upload_URL2=getString(R.string.localhost_url).concat("/uploadinfonew.php?");
+        }
 
         final String nameAnimal = name.getText().toString().trim();
         final String breedAnimal = breed.getText().toString().trim();
@@ -305,10 +325,11 @@ public class EditAnimal extends AppCompatActivity {
         final String sexAnimal = sex;
         final String kindAnimal = kind;
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, upload_URL2,
+        final StringRequest stringRequest = new StringRequest(Request.Method.POST, upload_URL2,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        Log.d("ressssssoo",response);
                         parseData(response);
 
                     }
@@ -322,6 +343,7 @@ public class EditAnimal extends AppCompatActivity {
             @Override
             protected Map<String,String> getParams(){
                 Map<String,String> params = new HashMap<String, String>();
+                params.put("urlAnimal", getUrl);
                 params.put("idAnimal",id);
                 params.put("nameAnimal",nameAnimal);
                 params.put("breedAnimal",breedAnimal);
@@ -330,6 +352,9 @@ public class EditAnimal extends AppCompatActivity {
                 params.put("descriptionAnimal",descriptionAnimal);
                 params.put("kind",kindAnimal);
                 params.put("sex",sexAnimal);
+                params.put("idShelter", idShelter);
+                Log.d("fjlsky", "["+params+"]");
+
                 return params;
             }
 
@@ -342,14 +367,15 @@ public class EditAnimal extends AppCompatActivity {
     public void parseData(String response) {
 
         try {
+            Log.d("ressssssoo",response);
             JSONObject jsonObject = new JSONObject(response);
             Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+            Toast.makeText(EditAnimal.this,response,Toast.LENGTH_LONG).show();
             if (jsonObject.getString("status").equals("true")) {
                 JSONArray dataArray = jsonObject.getJSONArray("data");
                 for (int i = 0; i < dataArray.length(); i++) {
 
                     JSONObject dataobj = dataArray.getJSONObject(i);
-                    String animalName = dataobj.getString("name");
                 }
             }
         } catch (JSONException e) {
@@ -366,7 +392,7 @@ public class EditAnimal extends AppCompatActivity {
                     public void onResponse(String response) {
 
                         try {
-
+                            Toast.makeText(EditAnimal.this, response, Toast.LENGTH_LONG).show();
                             JSONObject jsonObject = new JSONObject(response);
                             jsonObject.toString().replace("\\\\","");
                             if (jsonObject.getString("status").equals("true")) {
@@ -380,8 +406,8 @@ public class EditAnimal extends AppCompatActivity {
                                 String url = "";
                                 String vrsta1 = "";
                                 String spol1 = "";
-                                for (int i = 0; i < dataArray.length(); i++) {
-                                    JSONObject dataobj = dataArray.getJSONObject(i);
+                                //for (int i = 0; i < dataArray.length(); i++) {
+                                    JSONObject dataobj = dataArray.getJSONObject(0);
                                     ime = dataobj.optString("ime_zivotinja");
                                     pasmin = dataobj.optString("pasmina");
                                     opis = dataobj.optString("opis_zivotinja");
@@ -390,10 +416,12 @@ public class EditAnimal extends AppCompatActivity {
                                     tezina = dataobj.optString("velicina");
                                     vrsta1 = dataobj.optString("vrsta");
                                     spol1 = dataobj.optString("spol_zivotinja");
-                                    if(dataobj.has("url_slike")) {
-                                        url = dataobj.optString("url_slike");
+
+                                    JSONObject dataobj1 = dataArray.getJSONObject(1);
+                                    if(dataobj1.has("url_slike")) {
+                                        url = dataobj1.optString("url_slike");
                                     }
-                                }
+                                Toast.makeText(EditAnimal.this, url, Toast.LENGTH_LONG).show();
 
                                 name.setText(ime);
                                 breed.setText(pasmin);
@@ -407,7 +435,7 @@ public class EditAnimal extends AppCompatActivity {
                                     radioKindGroup.check(R.id.radioFemale);
                                 }
                                 //lastChange.setText(datumIzmjene);
-                                if(url!="") {
+                                if(!url.equals("")) {
                                     Picasso.get().load(getString(R.string.localhost_url).concat(url)).into(imageView);
                                 }
                             }

@@ -45,7 +45,7 @@ public class MainActivity extends BaseActivity {
     private String username;
     private String password;
     private ProgressDialog pDialog;
-    private String login_url = "http://192.168.1.4/mobilne/login.php";
+    private String login_url;
     private SessionHandler session;
 
     @Override
@@ -53,6 +53,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_main);
 
+        login_url = getString(R.string.localhost_url).concat("/login.php?");
         //novo dodano
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 //inflate your activity layout here!

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -39,6 +40,7 @@ public class ShelterProfile extends AppCompatActivity {
     private Button edit;
     private ListView listView;
     private ArrayList<Animal> values;
+    private SessionHandler session;
 
     private String upload_URL2;
     private String upload_URL3;
@@ -71,46 +73,26 @@ public class ShelterProfile extends AppCompatActivity {
         city =(TextView) findViewById(R.id.cityShelterView);
         ViewPager viewPager;
         CustomAdapter2 adapter;
-        values = new ArrayList<Animal>();
+        values = new ArrayList<>();
 
+        /*session = new SessionHandler(getApplicationContext());
+        User user = session.getUserDetails();
+
+        if(user.getUloga()==0) {
+            edit.setVisibility(View.GONE);
+        }
+*/
+        viewPager = (ViewPager)findViewById(R.id.view_pager2);
+
+        adapter = new CustomAdapter2(this, values);
+        sendRequest(adapter, idShelter);
+        viewPager.setAdapter(adapter);
 
         uploadInfo(idShelter);
 
-        viewPager = (ViewPager)findViewById(R.id.view_pager2);
-        adapter = new CustomAdapter2(this, values);
-        viewPager.setAdapter(adapter);
-
-
-
-
-        // ListView Item Click Listener
-/*        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-
-                // ListView Clicked item index
-                int itemPosition = position;
-
-                // ListView Clicked item value
-                Animal itemValue = (Animal) listView.getItemAtPosition(itemPosition);
-
-                Intent intent = new Intent(ShelterProfile.this, AnimalProfile.class);
-                Bundle b = new Bundle();
-                b.putInt("animalId", itemValue.getIdAnimal()); //Your id
-                intent.putExtras(b); //Put your id to your next Intent
-                startActivity(intent);
-                finish();
-
-            }
-
-        });
-*/
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(ShelterProfile.this, EditShelter.class);
                 Bundle b = new Bundle();
                 b.putInt("shelterId", val); //Your id
@@ -119,8 +101,6 @@ public class ShelterProfile extends AppCompatActivity {
                 finish();
             }
         });
-
-        sendRequest(adapter, idShelter);
 
     }
 
@@ -207,7 +187,7 @@ public class ShelterProfile extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            Toast.makeText(ShelterProfile.this,response,Toast.LENGTH_LONG).show();
+                            //Toast.makeText(ShelterProfile.this,response,Toast.LENGTH_LONG).show();
 
                             JSONObject jsonObject = new JSONObject(response);
                             if (jsonObject.getString("status").equals("true")) {
@@ -217,17 +197,19 @@ public class ShelterProfile extends AppCompatActivity {
                                 String pasmina = "";
                                 for (int i = 0; i < dataArray.length(); i++) {
                                     String url ="";
+                                    String skloniste ="";
                                     JSONObject dataobj = dataArray.getJSONObject(i);
                                     ime = dataobj.optString("ime_zivotinja");
                                     id = dataobj.optInt("id_zivotinja");
                                     pasmina = dataobj.optString("pasmina");
+                                    skloniste = dataobj.optString("ime_skloniste");
                                     if(dataobj.has("url_slike")) {
                                         url = dataobj.optString("url_slike");
                                         url = getString(R.string.localhost_url).concat(url);
+                                        values.add(new Animal(id, ime, pasmina, url, skloniste));
                                     }
-                                    values.add(new Animal(id, ime, pasmina, url));
                                 }
-                                Toast.makeText(ShelterProfile.this, values.toString(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(ShelterProfile.this, values.get(0).getUrl(), Toast.LENGTH_LONG).show();
                                 adapter.notifyDataSetChanged();
                             }
 

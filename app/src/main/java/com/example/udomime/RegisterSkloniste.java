@@ -67,13 +67,13 @@ public class RegisterSkloniste extends BaseActivity {
     private String adresaS;
 
     private ProgressDialog pDialog;
-    private String register_url = "http://192.168.1.4/mobilne/register_skloniste.php";
+    private String register_url;
     private SessionHandler session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        register_url = getString(R.string.localhost_url).concat("/register_skloniste.php");
 
         //setContentView(R.layout.activity_register_skloniste);
         //novo dodano

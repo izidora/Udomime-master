@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -28,6 +29,8 @@ public class DisplayAnimals extends AppCompatActivity {
     ListView listView;
     private String upload_URL2;
     ArrayList <Animal> values;
+    Button addAnimal;
+    SessionHandler session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,15 +42,38 @@ public class DisplayAnimals extends AppCompatActivity {
         if(b != null)
             value = b.getInt("shelterId");
         final String id = ""+value;
+        final int val = value;
 
 
         // Get ListView object from xml
         listView = (ListView) findViewById(R.id.list);
+        addAnimal = (Button) findViewById(R.id.button5);
+
+
+        if(value==-1) {
+            addAnimal.setVisibility(View.GONE);
+        }
+        else {
+            addAnimal.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(DisplayAnimals.this, EditAnimal.class);
+                    Bundle b = new Bundle();
+                    b.putInt("shelterId", val); //Your id
+                    b.putInt("animalId", -1);
+                    intent.putExtras(b); //Put your id to your next Intent
+                    startActivity(intent);
+                    finish();
+                }
+            });
+        }
 
         // Defined Array values to show in ListView
         values = new ArrayList<Animal>();
 
         final AnimalAdapter adapter = new AnimalAdapter(this, values);
+
+
 
 
         // Assign adapter to ListView
@@ -81,32 +107,33 @@ public class DisplayAnimals extends AppCompatActivity {
     }
 
     private void sendRequest(final AnimalAdapter adapter, final String id) {
-        Toast.makeText(DisplayAnimals.this,id,Toast.LENGTH_LONG).show();
+        //Toast.makeText(DisplayAnimals.this,id,Toast.LENGTH_LONG).show();
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, upload_URL2,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            Toast.makeText(DisplayAnimals.this,response,Toast.LENGTH_LONG).show();
-
+                            //Toast.makeText(DisplayAnimals.this,response,Toast.LENGTH_LONG).show();
                             JSONObject jsonObject = new JSONObject(response);
                             if (jsonObject.getString("status").equals("true")) {
                                 JSONArray dataArray = jsonObject.getJSONArray("data");
                                 String ime = "";
                                 int id;
                                 String pasmina = "";
+                                String skloniste = "";
                                 for (int i = 0; i < dataArray.length(); i++) {
                                     String url ="";
                                     JSONObject dataobj = dataArray.getJSONObject(i);
                                     ime = dataobj.optString("ime_zivotinja");
                                     id = dataobj.optInt("id_zivotinja");
                                     pasmina = dataobj.optString("pasmina");
+                                    skloniste = dataobj.optString("ime_skloniste");
                                     if(dataobj.has("url_slike")) {
                                         url = dataobj.optString("url_slike");
                                         url = getString(R.string.localhost_url).concat(url);
                                     }
-                                    values.add(new Animal(id, ime, pasmina, url));
+                                    values.add(new Animal(id, ime, pasmina, url, skloniste));
                                 }
                                 adapter.notifyDataSetChanged();
                             }

@@ -25,7 +25,6 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.6"
-            android:background="@drawable/border"
             android:orientation="horizontal"
             android:showDividers="end"
             android:weightSum="1">
@@ -47,16 +46,27 @@
 
             <TextView
                 android:id="@+id/textView_breed"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textView_name"
                 android:layout_gravity="bottom"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_toRightOf="@id/imageView_poster"
-                android:layout_weight="0.5"
+                android:layout_weight="0.3"
                 android:text="blaldls"
                 android:textSize="13sp" />
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|right|end"
+                android:background="@color/blueMainOpaque"
+                android:padding="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                app:srcCompat="@drawable/favourites" />
         </LinearLayout>
 
         <LinearLayout
@@ -86,6 +96,21 @@
                 android:text="jhldfks"
                 android:textSize="12sp"
                 android:textStyle="italic" />
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/blueMainOpaque"
+                android:text="Obriši" />
+
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@color/blueMainOpaque"
+                android:text="Uredi" />
 
         </LinearLayout>
 

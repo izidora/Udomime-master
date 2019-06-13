@@ -45,7 +45,7 @@ public class Izmjena_Stranica_Korisnika extends BaseActivity {
     private String email;
     private String grad;
     private String zupanija;
-    private String izmjeni_url = "http://192.168.1.4/mobilne/izmjeni_korisnika.php";
+    private String izmjeni_url = getString(R.string.localhost_url).concat("/izmjeni_korisnika.php");
     private SessionHandler session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
