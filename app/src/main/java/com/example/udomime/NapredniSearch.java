@@ -12,37 +12,23 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
-public class SearchIspis extends BaseActivity {
-    TextView ispis;
-    //String hej;
+public class NapredniSearch extends BaseActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_search_ispis);
+        //setContentView(R.layout.activity_napredni_search);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 //inflate your activity layout here!
         @SuppressLint("InflateParams")
-        View contentView = inflater.inflate(R.layout.activity_search_ispis, null, false);
+        View contentView = inflater.inflate(R.layout.activity_napredni_search, null, false);
         drawer.addView(contentView, 0);
         //novo
         //prikazuje navigation bar
         navigationView.setCheckedItem(R.id.nav_activity1);
-
-        Bundle k= getIntent().getExtras();
-        String value="";
-        if (k!=null){
-            value=k.getString("Vrijednost");
-        }
-        //Intent intent = getIntent();
-        //String text = intent.getStringExtra(Intent.EXTRA_TEXT);
-
-        ispis=findViewById(R.id.textView2);
-        ispis.setText(value);
-        //ispis.setText(hej);
-
     }
+
 
 
 

@@ -2,6 +2,7 @@ package com.example.udomime;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -11,9 +12,24 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class Stranica_korisnika extends BaseActivity {
+    Button izmjeni;
 
+    private TextView etIzImena;
+    private TextView etIzEmail;
+    private TextView etIzGrad;
+    private TextView etIzZupanija;
+    private TextView etIzUsername;
+    private String username;
+
+    private String ime;
+    private String email;
+    private String grad;
+    private String zupanija;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,41 +41,37 @@ public class Stranica_korisnika extends BaseActivity {
         //novo
         //prikazuje navigation bar
         navigationView.setCheckedItem(R.id.nav_activity1);
-    }
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main2, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_search) {
-            return true;
+        //incijaliziraj edite textove
+        etIzImena=findViewById(R.id.etPrikazImena);
+        etIzEmail=findViewById(R.id.etPrikazEmail);
+        etIzGrad=findViewById(R.id.etPrikazGrad);
+        etIzZupanija=findViewById(R.id.etPrikazZupanija);
+        etIzUsername=findViewById(R.id.etPrikazUsername);
+        //
+        session = new SessionHandler(getApplicationContext());
+        if(session.isLoggedIn()) {
+            final User user = session.getUserDetails();
+            etIzImena.setText(user.getFullName());
+            etIzEmail.setText(user.getEmail());
+            etIzGrad.setText(user.getGrad());
+            etIzZupanija.setText(user.getZupanija());
+            etIzUsername.setText(user.getUsername());
+        }else {
+            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+            startActivity(intent);
         }
 
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onBackPressed() {
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                finishAffinity();
-            } else {
-                super.onBackPressed();
+        izmjeni=findViewById(R.id.button_korisnik_prikaz);
+        izmjeni.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),Izmjena_Stranica_Korisnika.class);
+                startActivity(intent);
             }
-        }
+        });
     }
+
+
 
 }

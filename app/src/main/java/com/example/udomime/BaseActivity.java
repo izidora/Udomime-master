@@ -8,6 +8,7 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.View;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -18,6 +19,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,17 +58,31 @@ public class BaseActivity extends AppCompatActivity
         searchBar.setOnSearchActionListener(this);
         //searchBar.inflateMenu(R.menu.main2);
         //searchBar.setText("Ime životinje");
+//        Button napredno=(Button)navigationView.getHeaderView(0).findViewById(R.id.advance_search);
 
         //search
-
+/*        napredno.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),NapredniSearch.class);
+                startActivity(intent);
+            }
+        });*/
         session = new SessionHandler(getApplicationContext());
         final User userr = session.getUserDetails();
-        Button izmjena=(Button)navigationView.getHeaderView(0).findViewById(R.id.Izmjenibuttonkorisnika);
+        //Button izmjena=(Button)navigationView.getHeaderView(0).findViewById(R.id.Izmjenibuttonkorisnika);
         username_prikaz = (TextView) navigationView.getHeaderView(0).findViewById(R.id.prikaz_username);
 
         if(session.isLoggedIn()) {
             log_out=(Button)navigationView.getHeaderView(0).findViewById(R.id.Odjavabutton);
-
+            final ImageView slikaprofi=navigationView.getHeaderView(0).findViewById(R.id.slikaprofil);
+            slikaprofi.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    // Your code.
+                    Intent intent = new Intent(getApplicationContext(),Stranica_korisnika.class);
+                    startActivity(intent);
+                }
+            });
         log_out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,6 +99,7 @@ public class BaseActivity extends AppCompatActivity
 
         });
 
+/*
         izmjena.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
@@ -91,12 +108,13 @@ public class BaseActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
+*/
 
             username_prikaz.setText(userr.getUsername());
         }else{
             log_out=(Button)navigationView.getHeaderView(0).findViewById(R.id.Odjavabutton);
             log_out.setVisibility(View.GONE);
-            izmjena.setVisibility(View.GONE);
+           // izmjena.setVisibility(View.GONE);
             username_prikaz.setVisibility(View.GONE);
         }
     }
@@ -153,4 +171,44 @@ public class BaseActivity extends AppCompatActivity
                 break;
         }
     }
+    ///
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main2, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_search) {
+            return true;
+        }
+        if(id==R.id.advance_search){
+            Intent intent = new Intent(getApplicationContext(),NapredniSearch.class);
+            startActivity(intent);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                finishAffinity();
+            } else {
+                super.onBackPressed();
+            }
+        }
+    }
+
 }
