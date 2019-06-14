@@ -74,6 +74,9 @@ public class AnimalProfile extends BaseActivity {
         idAnimal = ""+value;
         final int val = value;
 
+        session = new SessionHandler(getApplicationContext());
+        final User user = session.getUserDetails();
+        final int userRole = user.getUloga();
 
         imageModelArrayList = new ArrayList<>();
         edit = (Button) findViewById(R.id.editAnimal);
@@ -93,6 +96,10 @@ public class AnimalProfile extends BaseActivity {
 
 
         uploadInfo(idAnimal);
+
+        if(userRole==0) {
+            edit.setVisibility(View.GONE);
+        }
 
         edit.setOnClickListener(new View.OnClickListener() {
             @Override

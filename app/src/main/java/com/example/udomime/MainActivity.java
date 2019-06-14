@@ -154,6 +154,7 @@ public class MainActivity extends BaseActivity {
                             //System.out.println("Odgovorlogin" + response.toString());
 
                             if (response.getInt(KEY_STATUS) == 0) {
+                                Log.d("aaaa", response.toString());
                                 session.loginUser(username,response.getString(KEY_FULL_NAME),response.getInt(KEY_ID),response.getInt(KEY_ULOGA),response.getString("email"),response.getString("grad"),response.getString("zupanija"));
                                 //loadDashboard();
                                 Log.d("****","[" + response + "]");
@@ -162,12 +163,13 @@ public class MainActivity extends BaseActivity {
                                 Toast.makeText(getApplicationContext(),
                                         "Welcome "+user.getFullName()+", your session will expire on "+user.getSessionExpiryDate()+"Tvoj id:"+user.getId()+",a tvoja uloga je:"+user.getUloga(), Toast.LENGTH_SHORT).show();
 
-                                Intent intent = new Intent(MainActivity.this, DisplayAnimals.class);
+                                Intent intent = new Intent(MainActivity.this, DisplayFavourites.class);
+                                startActivity(intent);
                                 finish();
                                 //poboljsa regfresanje
-                                overridePendingTransition(0, 0);
+                                /*overridePendingTransition(0, 0);
                                 startActivity(getIntent());
-                                overridePendingTransition(0, 0);
+                                overridePendingTransition(0, 0);*/
                                 //poboljsa
 
                             }else{

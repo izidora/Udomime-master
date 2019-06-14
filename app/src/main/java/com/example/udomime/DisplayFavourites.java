@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DisplayAnimals extends BaseActivity {
+public class DisplayFavourites extends BaseActivity {
 
     ListView listView;
     private String upload_URL2;
@@ -46,21 +46,15 @@ public class DisplayAnimals extends BaseActivity {
         drawer.addView(contentView, 0);
         //novo
         //prikazuje navigation bar
-       // navigationView.setCheckedItem(R.id.nav_activity1);
+        navigationView.setCheckedItem(R.id.nav_activity1);
 
-        upload_URL2 = getString(R.string.localhost_url).concat("/fetchanimals.php?");
+        upload_URL2 = getString(R.string.localhost_url).concat("/fetchFavourites.php?");
         session = new SessionHandler(getApplicationContext());
         final User user = session.getUserDetails();
-        final int a = user.getUloga();
-        int value=-1;
-        if(a==1) {
-            value = user.getId();
-        }
-        Bundle b = getIntent().getExtras();
-        if(b != null)
-            value = b.getInt("shelterId");
-        final String id = ""+value;
-        final int val = value;
+        final int a = user.getId();
+
+        final String id = ""+a;
+        final int val = a;
 
 
         // Get ListView object from xml
@@ -68,28 +62,14 @@ public class DisplayAnimals extends BaseActivity {
         addAnimal = (Button) findViewById(R.id.button5);
 
 
-        if(value==-1) {
-            addAnimal.setVisibility(View.GONE);
-        }
-        else {
-            addAnimal.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(DisplayAnimals.this, EditAnimal.class);
-                    Bundle b = new Bundle();
-                    b.putInt("shelterId", val); //Your id
-                    b.putInt("animalId", -1);
-                    intent.putExtras(b); //Put your id to your next Intent
-                    startActivity(intent);
-                    finish();
-                }
-            });
-        }
+        addAnimal.setVisibility(View.GONE);
+
+
 
         // Defined Array values to show in ListView
         values = new ArrayList<Animal>();
 
-        final AnimalAdapter adapter = new AnimalAdapter(this, values);
+        final CustomAdapter3 adapter = new CustomAdapter3(this, values);
 
 
 
@@ -110,7 +90,7 @@ public class DisplayAnimals extends BaseActivity {
                 // ListView Clicked item value
                 Animal itemValue = (Animal) listView.getItemAtPosition(itemPosition);
 
-                Intent intent = new Intent(DisplayAnimals.this, AnimalProfile.class);
+                Intent intent = new Intent(DisplayFavourites.this, AnimalProfile.class);
                 Bundle b = new Bundle();
                 b.putInt("animalId", itemValue.getIdAnimal()); //Your id
                 intent.putExtras(b); //Put your id to your next Intent
@@ -124,7 +104,7 @@ public class DisplayAnimals extends BaseActivity {
         sendRequest(adapter, id);
     }
 
-    private void sendRequest(final AnimalAdapter adapter, final String id) {
+    private void sendRequest(final CustomAdapter3 adapter, final String id) {
         //Toast.makeText(DisplayAnimals.this,id,Toast.LENGTH_LONG).show();
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, upload_URL2,
@@ -168,7 +148,7 @@ public class DisplayAnimals extends BaseActivity {
         }) {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("idShelter", id);
+                params.put("idUser", id);
 
                 return params;
             }

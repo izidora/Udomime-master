@@ -74,8 +74,8 @@ public class ShelterProfile extends BaseActivity {
         if(b != null)
             value = b.getInt("shelterId");
         final String idShelter;
-        idShelter = "1";
-        final int val = 1;//value;
+        idShelter = ""+value;
+        final int val = value;//value;
 
         edit = (Button) findViewById(R.id.editShelter);
         imageView = (ImageView) findViewById(R.id.picShelter);
@@ -89,13 +89,13 @@ public class ShelterProfile extends BaseActivity {
         CustomAdapter2 adapter;
         values = new ArrayList<>();
 
-        /*session = new SessionHandler(getApplicationContext());
+        session = new SessionHandler(getApplicationContext());
         User user = session.getUserDetails();
 
         if(user.getUloga()==0) {
             edit.setVisibility(View.GONE);
         }
-*/
+
         viewPager = (ViewPager)findViewById(R.id.view_pager2);
 
         adapter = new CustomAdapter2(this, values);
