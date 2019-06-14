@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
-    <group android:checkableBehavior="single">
+<!--    <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_activity1"
             android:icon="@drawable/ic_menu_send"
@@ -16,5 +16,20 @@
             android:icon="@drawable/ic_menu_share"
             android:title="Open reg skloniste"
             />
-    </group>
+    </group>-->
+    <item
+        android:id="@+id/naslovnica"
+        android:title="Naslovnica"
+        android:icon="@drawable/ic_home_black_24dp"
+        >
+    </item>
+    <item
+        android:id="@+id/favoriti"
+    android:title="Favoriti"
+        android:icon="@drawable/ic_favorite_black_24dp"></item>
+    <item
+        android:id="@+id/PopisSklonista"
+        android:title="Popis Sklonista"
+        android:icon="@drawable/ic_view_list_black_24dp"
+        ></item>
 </menu>
