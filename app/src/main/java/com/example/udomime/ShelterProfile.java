@@ -1,9 +1,12 @@
 package com.example.udomime;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -28,7 +31,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ShelterProfile extends AppCompatActivity {
+public class ShelterProfile extends BaseActivity {
 
     private TextView name;
     private TextView adress;
@@ -53,7 +56,18 @@ public class ShelterProfile extends AppCompatActivity {
         upload_URL2 = getString(R.string.localhost_url).concat("/fetchshelterprofile.php?");
         upload_URL3 = getString(R.string.localhost_url).concat("/fetchanimals.php?");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shelter_profile);
+        //setContentView(R.layout.activity_shelter_profile);
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        //inflate your activity layout here!
+        @SuppressLint("InflateParams")
+        View contentView = inflater.inflate(R.layout.activity_shelter_profile, null, false);
+        drawer.addView(contentView, 0);
+        //novo
+        //prikazuje navigation bar
+        navigationView.setCheckedItem(R.id.nav_activity1);
+
+
+
         System.out.println(upload_URL2);
         Bundle b = getIntent().getExtras();
         int value = -1; // or other values

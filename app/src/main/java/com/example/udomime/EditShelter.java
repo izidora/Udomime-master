@@ -1,6 +1,7 @@
 package com.example.udomime;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -13,6 +14,7 @@ import android.provider.MediaStore;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -48,7 +50,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class EditShelter extends AppCompatActivity {
+public class EditShelter extends BaseActivity {
 
     private TextInputEditText name;
     private TextInputEditText adress;
@@ -73,7 +75,15 @@ public class EditShelter extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_shelter);
+        //setContentView(R.layout.activity_edit_shelter);
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        //inflate your activity layout here!
+        @SuppressLint("InflateParams")
+        View contentView = inflater.inflate(R.layout.activity_edit_shelter, null, false);
+        drawer.addView(contentView, 0);
+        //novo
+        //prikazuje navigation bar
+        navigationView.setCheckedItem(R.id.nav_activity1);
 
         upload_URL = getString(R.string.localhost_url).concat("/uploadfileshelter.php?");
         upload_URL2 = getString(R.string.localhost_url).concat("/uploadinfoshelter.php?");

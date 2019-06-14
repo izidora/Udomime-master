@@ -1,8 +1,11 @@
 package com.example.udomime;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -24,7 +27,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DisplayAnimals extends AppCompatActivity {
+public class DisplayAnimals extends BaseActivity {
 
     ListView listView;
     private String upload_URL2;
@@ -34,7 +37,16 @@ public class DisplayAnimals extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_display_animals);
+        //setContentView(R.layout.activity_display_animals);
+
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        //inflate your activity layout here!
+        @SuppressLint("InflateParams")
+        View contentView = inflater.inflate(R.layout.activity_display_animals, null, false);
+        drawer.addView(contentView, 0);
+        //novo
+        //prikazuje navigation bar
+        navigationView.setCheckedItem(R.id.nav_activity1);
 
         upload_URL2 = getString(R.string.localhost_url).concat("/fetchanimals.php?");
         Bundle b = getIntent().getExtras();

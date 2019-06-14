@@ -1,9 +1,12 @@
 package com.example.udomime;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -25,7 +28,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AnimalProfile extends AppCompatActivity {
+public class AnimalProfile extends BaseActivity {
 
     private TextView name;
     private TextView age;
@@ -50,7 +53,16 @@ public class AnimalProfile extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_animal_profile);
+        //setContentView(R.layout.activity_animal_profile);
+
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//inflate your activity layout here!
+        @SuppressLint("InflateParams")
+        View contentView = inflater.inflate(R.layout.activity_animal_profile, null, false);
+        drawer.addView(contentView, 0);
+        //novo
+        //prikazuje navigation bar
+        navigationView.setCheckedItem(R.id.nav_activity1);
 
         upload_URL2 = getString(R.string.localhost_url).concat("/fetchanimalprofile.php?");
 
