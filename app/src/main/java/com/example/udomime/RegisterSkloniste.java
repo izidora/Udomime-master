@@ -20,6 +20,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -28,9 +29,19 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.android.gms.common.api.Status;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Arrays;
+
+import in.madapps.placesautocomplete.PlaceAPI;
 
 public class RegisterSkloniste extends BaseActivity {
     private static final String KEY_STATUS = "status";
@@ -55,7 +66,7 @@ public class RegisterSkloniste extends BaseActivity {
     private EditText etGradSkloniste;
     private EditText etEmailSkloniste;
     private EditText etBrojTelefona;
-    private EditText etAdresaSkloniste;
+   // private EditText etAdresaSkloniste;
 
     private String usernameS;
     private String imeS;
@@ -70,6 +81,8 @@ public class RegisterSkloniste extends BaseActivity {
     private ProgressDialog pDialog;
     private String register_url;
     private SessionHandler session;
+    String TAG = "placeautocomplete";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +97,36 @@ public class RegisterSkloniste extends BaseActivity {
         View contentView = inflater.inflate(R.layout.activity_register_skloniste, null, false);
         drawer.addView(contentView, 0);
         //novo
-        navigationView.setCheckedItem(R.id.nav_activity3);
+       // navigationView.setCheckedItem(R.id.nav_activity3);
+
+    /*    Places.initialize(getApplicationContext(), "AIzaSyAyVddfVCAcVub30s1xsJLiaRCMx70EbtA");
+        // Create a new Places client instance.
+        // Create a new Places client instance.
+        PlacesClient placesClient = Places.createClient(this);
+
+        // Initialize the AutocompleteSupportFragment.
+        final AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
+                getSupportFragmentManager().findFragmentById(R.id.etAdresaSkloniste);
+
+        // Specify the types of place data to return.
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
+        autocompleteFragment.setHint("Grad");
+        // Set up a PlaceSelectionListener to handle the response.
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                // TODO: Get info about the selected place.
+                autocompleteFragment.setText(place.getName());
+                autocompleteFragment.setText(place.getName()+","+place.getLatLng());
+                Log.i(TAG, "Place: " + place.getName() + ", " + place.getLatLng());
+            }
+
+            @Override
+            public void onError(Status status) {
+                // TODO: Handle the error.
+                Log.i(TAG, "An error occurred: " + status);
+            }
+        });*/
 
 
         etImeSklonista = (EditText)findViewById(R.id.etImeSklonista);
@@ -95,11 +137,13 @@ public class RegisterSkloniste extends BaseActivity {
         etEmailSkloniste=findViewById(R.id.etEmailSkloniste);
         etGradSkloniste=findViewById(R.id.etGradSkloniste);
         etZupanijaSkloniste=findViewById(R.id.etZupanijaSkloniste);
-        etAdresaSkloniste=findViewById(R.id.etAdresaSkloniste);
+        //etAdresaSkloniste=findViewById(R.id.etAdresaSkloniste);
 
         session = new SessionHandler(getApplicationContext());
 
         Button registerSkl = findViewById(R.id.btnRegisterskloniste);
+
+
 
         registerSkl.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,14 +157,15 @@ public class RegisterSkloniste extends BaseActivity {
                 zupanijaS=etZupanijaSkloniste.getText().toString().trim();
                 emailS=etEmailSkloniste.getText().toString().trim();
                 imeS=etImeSklonista.getText().toString().trim();
-                adresaS=etAdresaSkloniste.getText().toString().trim();
-
+              //  adresaS=autocompleteFragment.getText(0).toString().trim();
+                Log.d("Adresaaa:",adresaS);
                 if (validateInputs()) {
                     registerUser();
                 }
 
             }
         });
+
 
     }
     /**
