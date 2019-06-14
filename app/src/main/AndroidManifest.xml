@@ -28,7 +28,8 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:replace="android:label">
-        <activity android:name=".DisplayAnimals2"></activity>
+        <activity android:name=".DisplayFavourites"></activity>
+        <activity android:name=".DisplayAnimals2" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -52,7 +53,6 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
-
         <activity android:name=".NapredniSearch">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -70,15 +70,15 @@
         <activity
             android:name=".Register"
             android:label="@string/title_activity_register"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:label="Log in"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".EditShelter"></activity>
-        <activity android:name=".ShelterProfile"></activity>
-        <activity android:name=".AnimalProfile">
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity android:name=".EditShelter" />
+        <activity android:name=".ShelterProfile" />
+        <activity android:name=".AnimalProfile"></activity>
         <activity android:name=".EditAnimal" />
         <activity android:name=".DisplayAnimals" />
 

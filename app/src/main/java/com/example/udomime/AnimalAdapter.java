@@ -1,9 +1,11 @@
 package com.example.udomime;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -64,14 +66,16 @@ public class AnimalAdapter extends ArrayAdapter<Animal> {
         if (listItem == null)
             listItem = LayoutInflater.from(mContext).inflate(R.layout.list_item, parent, false);
 
-        //User user = session.getUserDetails();
+        final User user = session.getUserDetails();
+        final int a = user.getUloga();
+        Log.d("id", a+"");
+        final String b=a+"";
 
         Button erase = (Button) listItem.findViewById(R.id.button3);
         Button edit = (Button) listItem.findViewById(R.id.button4);
         ImageView favourite = (ImageView) listItem.findViewById(R.id.imageView4);
 
         final Animal currentAnimal = animalList.get(position);
-        int a = 0;
         ImageView image = (ImageView) listItem.findViewById(R.id.imageView_poster);
         String url = currentAnimal.getUrl();
         if (url != "") {
@@ -87,10 +91,10 @@ public class AnimalAdapter extends ArrayAdapter<Animal> {
         TextView shelter = (TextView) listItem.findViewById(R.id.textView_shelter);
         shelter.setText(currentAnimal.getShelter());
 
-        if (a == 1) {
+        if (a == 0) {
             erase.setVisibility(View.GONE);
             edit.setVisibility(View.GONE);
-        } else {
+        } else if(a == 1){
             favourite.setVisibility(View.GONE);
 
         }
@@ -107,10 +111,14 @@ public class AnimalAdapter extends ArrayAdapter<Animal> {
         });
 
         favourite.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View v) {
+                String URL = mContext.getString(R.string.localhost_url).concat("/adFavourite.php?");
+
+                v.setBackgroundColor(R.color.blueMain);
                 RequestQueue queue = Volley.newRequestQueue(mContext);
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, "http:/192.168.1.5/projekt/adFavourite.php?",
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
@@ -119,6 +127,7 @@ public class AnimalAdapter extends ArrayAdapter<Animal> {
 
                                     JSONObject jsonObject = new JSONObject(response);
                                     if (jsonObject.getString("status").equals("true")) {
+                                        Toast.makeText(mContext, "Dodano u favorite", Toast.LENGTH_SHORT).show();
                                     }
 
                                     // Once we added the string to the array, we notify the arrayAdapter
@@ -133,8 +142,9 @@ public class AnimalAdapter extends ArrayAdapter<Animal> {
                 }) {
                     protected Map<String, String> getParams() {
                         Map<String, String> params = new HashMap<String, String>();
-                        params.put("idUser", "1");
+                        params.put("idUser", user.getId()+"");
                         params.put("idAnimal", currentAnimal.getIdAnimal()+"");
+                        Log.d("params", params.toString());
                         return params;
                     }
                 };
@@ -168,8 +178,9 @@ public class AnimalAdapter extends ArrayAdapter<Animal> {
         return listItem;
     }
     public void obrisi(final Animal currentAnimal){
+        String URL = mContext.getString(R.string.localhost_url).concat("/deleteAnimal.php?");
         RequestQueue queue = Volley.newRequestQueue(mContext);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http:/192.168.1.5/projekt/deleteAnimal.php?",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -178,6 +189,7 @@ public class AnimalAdapter extends ArrayAdapter<Animal> {
 
                             JSONObject jsonObject = new JSONObject(response);
                             if (jsonObject.getString("status").equals("true")) {
+                                Toast.makeText(mContext, "Životinja je obrisana", Toast.LENGTH_SHORT);
                             }
 
                             // Once we added the string to the array, we notify the arrayAdapter

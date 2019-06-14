@@ -105,7 +105,6 @@ public class EditAnimal extends BaseActivity {
             valueShelter = b.getInt("shelterId");
         }
         id = ""+value;
-        id="-1";
         idShelter = ""+valueShelter;
 
         imageView = (ImageView) findViewById(R.id.iv);
