@@ -190,8 +190,8 @@ public class BaseActivity extends AppCompatActivity
             return true;
         }
         if(id==R.id.advance_search){
-            Intent intent = new Intent(getApplicationContext(),NapredniSearch.class);
-            startActivity(intent);
+          /*  Intent intent = new Intent(getApplicationContext(),NapredniSearch.class);
+            startActivity(intent);*/
         }
 
         return super.onOptionsItemSelected(item);

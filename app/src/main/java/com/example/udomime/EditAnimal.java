@@ -1,6 +1,7 @@
 package com.example.udomime;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.provider.MediaStore;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
@@ -48,7 +50,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class EditAnimal extends AppCompatActivity {
+public class EditAnimal extends BaseActivity {
 
     private TextInputEditText name;
     private AutoCompleteTextView breed;
@@ -79,7 +81,15 @@ public class EditAnimal extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_animal);
+        //setContentView(R.layout.activity_view_animal);
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        //inflate your activity layout here!
+        @SuppressLint("InflateParams")
+        View contentView = inflater.inflate(R.layout.activity_view_animal, null, false);
+        drawer.addView(contentView, 0);
+        //novo
+        //prikazuje navigation bar
+        navigationView.setCheckedItem(R.id.nav_activity1);
 
         upload_URL = getString(R.string.localhost_url).concat("/uploadfile.php?");
         upload_URL2 = getString(R.string.localhost_url).concat("/uploadinfo.php?");

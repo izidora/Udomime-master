@@ -143,10 +143,14 @@ public class MainActivity extends BaseActivity {
                                 //Log.d("Podaci:",session.getUserDetails());
                                 Toast.makeText(getApplicationContext(),
                                         "Welcome "+user.getFullName()+", your session will expire on "+user.getSessionExpiryDate()+"Tvoj id:"+user.getId()+",a tvoja uloga je:"+user.getUloga(), Toast.LENGTH_SHORT).show();
+
+                                Intent intent = new Intent(MainActivity.this, DisplayAnimals.class);
                                 finish();
+                                //poboljsa regfresanje
                                 overridePendingTransition(0, 0);
                                 startActivity(getIntent());
                                 overridePendingTransition(0, 0);
+                                //poboljsa
 
                             }else{
                                 //final String result = username.toString();
