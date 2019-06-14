@@ -22,6 +22,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -48,6 +49,8 @@ public class MainActivity extends BaseActivity {
     private ProgressDialog pDialog;
     private String login_url;
     private SessionHandler session;
+    private TextView gumbreg;
+    private TextView gumbregsk;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +66,7 @@ public class MainActivity extends BaseActivity {
         drawer.addView(contentView, 0);
         //novo
         //prikazuje navigation bar
-        navigationView.setCheckedItem(R.id.nav_activity1);
+       // navigationView.setCheckedItem(R.id.nav_activity1);
 
 
         etUsername = findViewById(R.id.etLoginUsername);
@@ -72,7 +75,22 @@ public class MainActivity extends BaseActivity {
 
         session = new SessionHandler(getApplicationContext());
 
-
+        gumbreg=findViewById(R.id.gumbreg);
+        gumbregsk=findViewById(R.id.gubregskl);
+        gumbreg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),Register.class);
+                startActivity(intent);
+            }
+        });
+        gumbregsk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),RegisterSkloniste.class);
+                startActivity(intent);
+            }
+        });
         //Button log_out=findViewById(R.id.Odjavabutton);
         //Button register = findViewById(R.id.btnLoginRegister);
         Button login = findViewById(R.id.btnLogin);

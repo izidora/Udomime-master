@@ -74,7 +74,7 @@ public class Register extends BaseActivity {
         View contentView = inflater.inflate(R.layout.activity_register, null, false);
         drawer.addView(contentView, 0);
         //novo
-        navigationView.setCheckedItem(R.id.nav_activity2);
+       // navigationView.setCheckedItem(R.id.nav_activity2);
 
 
         etUsername = findViewById(R.id.etUsername);
@@ -110,6 +110,8 @@ public class Register extends BaseActivity {
 
             }
         });
+
+        ///dodaj adressu
     }
 
     /**

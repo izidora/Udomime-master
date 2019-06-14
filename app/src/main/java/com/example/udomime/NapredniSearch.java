@@ -57,7 +57,7 @@ public class NapredniSearch extends BaseActivity {
         drawer.addView(contentView, 0);
         //novo
         //prikazuje navigation bar
-        navigationView.setCheckedItem(R.id.nav_activity1);
+        //navigationView.setCheckedItem(R.id.nav_activity1);
 
 
         name = findViewById(R.id.TraziIme);
@@ -94,7 +94,7 @@ public class NapredniSearch extends BaseActivity {
                 }
 
                 if((isNumeric(starost)&&isNumeric(velicina))|| (starost.equals("")&&velicina.equals("")) || (starost.equals("")&&isNumeric(velicina)) || (isNumeric(starost)&&velicina.equals(""))) {
-                    Intent intent = new Intent(NapredniSearch.this, DisplayAnimals2.class);
+               /*     Intent intent = new Intent(NapredniSearch.this, DisplayAnimals2.class);
                     Bundle b = new Bundle();
                     b.putString("name",ime);
                     b.putString("address",zupanija);
@@ -104,7 +104,7 @@ public class NapredniSearch extends BaseActivity {
                     b.putString("kind", vrsta);
                     intent.putExtras(b); //Put your id to your next Intent
                     startActivity(intent);
-                    finish();
+                    finish();*/
                 }
                 else {
                     Toast.makeText(NapredniSearch.this, "Starost i veličina moraju biti numeričke vrijednosti", Toast.LENGTH_SHORT).show();

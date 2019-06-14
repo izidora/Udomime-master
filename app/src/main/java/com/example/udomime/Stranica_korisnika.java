@@ -40,7 +40,7 @@ public class Stranica_korisnika extends BaseActivity {
         drawer.addView(contentView, 0);
         //novo
         //prikazuje navigation bar
-        navigationView.setCheckedItem(R.id.nav_activity1);
+        //navigationView.setCheckedItem(R.id.nav_activity1);
 
         //incijaliziraj edite textove
         etIzImena=findViewById(R.id.etPrikazImena);

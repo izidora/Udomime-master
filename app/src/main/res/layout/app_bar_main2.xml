@@ -15,20 +15,10 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="#00BCD4"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
 
-            <com.mancj.materialsearchbar.MaterialSearchBar
-                android:id="@+id/action_search"
-                style="@style/MaterialSearchBarLight"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:mt_hint="Pretraži"
-                app:mt_maxSuggestionsCount="5"
-                app:mt_speechMode="false"
-                app:mt_roundedSearchBarEnabled="true"
-                />
 
 
         </android.support.v7.widget.Toolbar>

@@ -36,6 +36,8 @@ public class BaseActivity extends AppCompatActivity
     SessionHandler session;
     TextView username_prikaz;
     MaterialSearchBar searchBar;
+    TextView ime_pri;
+    Button prijava;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,11 +56,11 @@ public class BaseActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         //search
 
-        searchBar = findViewById(R.id.action_search);
-        searchBar.setOnSearchActionListener(this);
+     /*   searchBar = findViewById(R.id.action_search);
+        searchBar.setOnSearchActionListener(this);*/
         //searchBar.inflateMenu(R.menu.main2);
         //searchBar.setText("Ime životinje");
-//        Button napredno=(Button)navigationView.getHeaderView(0).findViewById(R.id.advance_search);
+       Button napredno=(Button)navigationView.getHeaderView(0).findViewById(R.id.advance_search);
 
         //search
 /*        napredno.setOnClickListener(new View.OnClickListener() {
@@ -68,11 +70,33 @@ public class BaseActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });*/
+        prijava = (Button) navigationView.getHeaderView(0).findViewById(R.id.buttonprijava);
+
         session = new SessionHandler(getApplicationContext());
         final User userr = session.getUserDetails();
-        //Button izmjena=(Button)navigationView.getHeaderView(0).findViewById(R.id.Izmjenibuttonkorisnika);
         username_prikaz = (TextView) navigationView.getHeaderView(0).findViewById(R.id.prikaz_username);
-
+        ime_pri=navigationView.getHeaderView(0).findViewById(R.id.prikaz_imena);
+        if(!session.isLoggedIn()) {
+            final ImageView slikaprofi = navigationView.getHeaderView(0).findViewById(R.id.slikaprofil);
+            slikaprofi.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    // Your code.
+                    Intent intent = new Intent(getApplicationContext(), Stranica_korisnika.class);
+                    startActivity(intent);
+                }
+            });
+            prijava.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                    overridePendingTransition(0, 0);
+                    startActivity(getIntent());
+                    overridePendingTransition(0, 0);
+                }
+            });
+        }
         if(session.isLoggedIn()) {
             log_out=(Button)navigationView.getHeaderView(0).findViewById(R.id.Odjavabutton);
             final ImageView slikaprofi=navigationView.getHeaderView(0).findViewById(R.id.slikaprofil);
@@ -111,11 +135,14 @@ public class BaseActivity extends AppCompatActivity
 */
 
             username_prikaz.setText(userr.getUsername());
+            ime_pri.setText(userr.getFullName());
+            prijava.setVisibility(View.GONE);
         }else{
             log_out=(Button)navigationView.getHeaderView(0).findViewById(R.id.Odjavabutton);
             log_out.setVisibility(View.GONE);
            // izmjena.setVisibility(View.GONE);
             username_prikaz.setVisibility(View.GONE);
+
         }
     }
 
@@ -123,11 +150,11 @@ public class BaseActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.nav_activity1) {
+        if (id == R.id.naslovnica) {
             startAnimatedActivity(new Intent(getApplicationContext(), MainActivity.class));
-        } else if (id == R.id.nav_activity2) {
+        } else if (id == R.id.favoriti) {
             startAnimatedActivity(new Intent(getApplicationContext(), Register.class));
-        }else if (id==R.id.nav_activity3){
+        }else if (id==R.id.PopisSklonista){
             startAnimatedActivity(new Intent(getApplicationContext(), RegisterSkloniste.class));
         }
 
@@ -186,12 +213,13 @@ public class BaseActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_search) {
+/*        if (id == R.id.action_search) {
             return true;
-        }
+        }*/
         if(id==R.id.advance_search){
-          /*  Intent intent = new Intent(getApplicationContext(),NapredniSearch.class);
-            startActivity(intent);*/
+          Intent intent = new Intent(getApplicationContext(),NapredniSearch.class);
+            startActivity(intent);
+
         }
 
         return super.onOptionsItemSelected(item);

@@ -46,7 +46,7 @@ public class DisplayAnimals extends BaseActivity {
         drawer.addView(contentView, 0);
         //novo
         //prikazuje navigation bar
-        navigationView.setCheckedItem(R.id.nav_activity1);
+       // navigationView.setCheckedItem(R.id.nav_activity1);
 
         upload_URL2 = getString(R.string.localhost_url).concat("/fetchanimals.php?");
         session = new SessionHandler(getApplicationContext());
